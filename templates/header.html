@@ -4,15 +4,15 @@
     <nav class="navbar navbar-default" role="navigation">
         <div class="navbar-header">
             <a class="navbar-brand" href="1" >
-                <img  src="{% static '/images/1.jpg' %}" width="200px">
+                <img  src="{% static '/images/w.jpg' %}" width="50px">
             </a>
         </div>
         <div >
             <ul class="nav navbar-brand" role="navigation">
                 <li><a href="{% url 'blog:blog_title' %}">BLOG</a> </li>
             </ul>
-            <ul class="nav navbar-nav navbat-right">
-                <li><a href="#">login</a> </li>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'account:user_login' %}">login</a> </li>
             </ul>
         </div>
 

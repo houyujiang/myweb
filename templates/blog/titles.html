@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% block title %} blog titles{% endblock %}
 
 {% block content %}
@@ -20,8 +21,8 @@
 
     <div class="col-xs-6 col-md-4">
         <h2>广告</h2>
-        <p>跟着侯禹江学python</p>
-        <img width="600px" src="http://img1.gamersky.com/image2018/02/20180207_wyc_246_3/gamersky_02small_04_20182710168DE.jpg">
+        <p>跟着侯禹江学Python-Django</p>
+        <img width="200px" src="{% static '/images/1.jpg' %}" >
     </div>
 </div>
 
