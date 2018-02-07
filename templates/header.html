@@ -1,0 +1,21 @@
+{% load staticfiles %}
+
+<div class="container">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="1" >
+                <img  src="{% static '/images/2.jpg' %}" width="200px">
+            </a>
+        </div>
+        <div >
+            <ul class="nav navbar-brand" role="navigation">
+                <li><a href="{% url 'blog:blog_title' %}">BLOG</a> </li>
+            </ul>
+            <ul class="nav navbar-nav navbat-right">
+                <li><a href="#">login</a> </li>
+            </ul>
+        </div>
+
+
+    </nav>
+</div>

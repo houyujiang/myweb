@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %} blog titles{% endblock %}
+
+{% block content %}
+
+<div class="row text-center vertical-middle-sm">
+    <h1>侯禹江的博客</h1>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-md-8">
+        <ul>
+            {% for blog in blogs %}
+                <li><a href="{{ blog.id }}"> {{ blog.title }}</a></li>
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+    <div class="col-xs-6 col-md-4">
+        <h2>广告</h2>
+        <p>跟着侯禹江学python</p>
+        <img width="600px" src="http://img1.gamersky.com/image2018/02/20180207_wyc_246_3/gamersky_02small_04_20182710168DE.jpg">
+    </div>
+</div>
+
+{% endblock %}
