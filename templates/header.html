@@ -1,7 +1,7 @@
 {% load staticfiles %}
 
-<div class="container">
-    <nav class="navbar navbar-default" role="navigation">
+<div class="container" style="color: red">
+    <nav class="navbar navbar-default" role="navigation" style="color:#d43f3a">
         <div class="navbar-header">
             <a class="navbar-brand" href="1" >
                 <img  src="{% static '/images/w.jpg' %}" width="50px">
@@ -13,6 +13,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{% url 'account:user_login' %}">login</a> </li>
+                <li><a href="{%  url 'account:user_logout' %}" >LogOut</a> </li>
             </ul>
         </div>
 
