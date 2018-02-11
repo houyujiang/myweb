@@ -2,6 +2,18 @@
 {% load staticfiles %}
 {% block title %} myself information{% endblock %}
 {% block content %}
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/layer.js' %}"></script>
+    <script>
+    function upload_image_layer() {
+        layer.open({
+            title:'上传照片',
+            area:['1000px','600px'],
+            type:2,
+            content:'{% url 'account:my_image' %}',
+        });
+    }
+    </script>
 <div class="row text-center vertical-middle-sm" >
     <h1>My Information</h1>
     <div class="col-md-6">
