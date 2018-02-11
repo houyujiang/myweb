@@ -4,6 +4,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import authenticate,login
 from .forms import LoginFrom,RegistrationForm,UserProfileForm
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from .models import UserProfile,UserInfo
 # Create your views here.
 def user_login(request):
     if request.method == "POST":
@@ -33,6 +37,7 @@ def register(request):
             new_profile = userprofile_form.save(commit=False)
             new_profile.user = new_user
             new_profile.save()
+            UserInfo.objects.create(user = new_user)
 
             return HttpResponse('Successfully')
         else:
@@ -43,3 +48,12 @@ def register(request):
         userprofile_form = UserProfileForm()
         return render(request,'account/register.html',{'form':user_form,'profile':userprofile_form},)
 
+
+#展示个人信息
+@login_required(login_url='/account/login/')
+def myself(request):
+    user = User.objects.get(username=request.user.username)
+    userprofile = UserProfile.objects.get(user=user)
+    userinfo = UserInfo.objects.get(user = user)
+
+    return render(request,'account/myself.html',{'user':user,'userinfo':userinfo,'userprofile':userprofile})
