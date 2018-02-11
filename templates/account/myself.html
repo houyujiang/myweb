@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %} myself information{% endblock %}
 {% block content %}
 <div class="row text-center vertical-middle-sm" >
@@ -92,9 +93,19 @@
     </div>
 
     <div class="col-md-6">
-        <p>
-          picture
-        </p>
+        <div style="margin-right: 100px">
+            {% if userinfo.photo %}
+            <img src="{{ userinfo.photo |striptags }}" class="img-circle" id="my_photo" name="my_photo">
+                {% else %}
+                <img name="user_face" src="{% static 'images/1.jpg' %}" class="img-circle" id="my_photo">
+            {% endif %}
+
+        </div>
+        <div style="margin-right: 100px">
+            <button class="btn btn-primary btn-lg" id="uploag_image" onclick="upload_image_layer()">
+                上传我的照片
+            </button>
+        </div>
     </div>
 
 

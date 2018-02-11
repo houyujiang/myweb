@@ -48,4 +48,6 @@ urlpatterns = [
     url(r'^my-information/$',views.myself,name='my_information'),
     #编辑个人信息
     url(r'^edit-my-information/$',views.myself_edit,name='edit_my_information'),
+    #查看个人照片
+    url(r'^my-image/$',views.my_image,name='my_image'),
 ]
