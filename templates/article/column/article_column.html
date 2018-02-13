@@ -71,7 +71,7 @@
     }
     <!--修改栏目-->
     function edit_column(the,column_id) {
-        var name = $(the).parent('tr').children('td').eq(1).text();
+        var name = $(the).parents('tr').children('td').eq(1).text();
         var index = layer.open({
             type : 1,
             skin :'layui-layer-rim',
@@ -81,7 +81,7 @@
             btn :['确定','取消'],
             yes : function (index,layer) {
                 new_column = $('#new_name').val();
-                //alert(column_name);
+                alert(column_name)
                 $.ajax({
                     url : '{% url 'article:rename_column' %}',
                     type : 'POST',
@@ -92,6 +92,41 @@
                           layer.msg('成功修改栏目');
                       } else{
                           layer.msg('保存栏目失败')
+                      }
+                    },
+                });
+            },
+            no : function (index,layer) {
+                layer.close(index);
+
+            }
+        });
+    }
+
+    <!--删除-->
+    function del_column(the,column_id) {
+        var name = $(the).parents('tr').children('td').eq(1).text();
+        alert(name);
+        var index = layer.open({
+            type : 1,
+            skin :'layui-layer-rim',
+            area : ['400px','200px'],
+            title :'删除栏目',
+            content : '<div class ="text-center" style="margin-top:20px"><p>确定要删除{'+name+'}栏目</p> </div>',
+            btn :['确定','取消'],
+            yes : function (index,layer) {
+
+
+                $.ajax({
+                    url : '{% url 'article:del_column' %}',
+                    type : 'POST',
+                    data : {'column_id' :column_id},
+                    success: function (e) {
+                      if (e=='1'){
+                          parent.location.reload();
+                          layer.msg('删除栏目成功');
+                      } else{
+                          layer.msg('删除栏目失败')
                       }
                     },
                 });

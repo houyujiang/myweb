@@ -11,5 +11,5 @@ from . import views
 urlpatterns =[
     url(r'^article-cloumn/$',views.article_column,name='article_column'),
     url(r'^rename-column/$',views.rename_column,name='rename_column'),
-
+    url(r'^del-colmun/$',views.del_column,name='del_column')
 ]
