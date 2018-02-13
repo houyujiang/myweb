@@ -1,0 +1,30 @@
+{% load staticfiles %}
+<div class="container" style="color: red">
+    <nav class="navbar navbar-default" role="navigation" >
+        <div class="navbar-header">
+            <a class="navbar-brand" href="1" >
+                <img  src="{% static '/images/w.jpg' %}" width="50px">
+            </a>
+        </div>
+
+        <div>
+            <ul class="nav navbar-brand" role="tablist">
+                <li><a href="{% url 'article:article_column' %}">文章管理</a> </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 100px">
+                <li>
+                    <a href="{% url 'blog:blog_title' %}">网站首页</a>
+                </li>
+                <li>
+                    <a> <span>{{ user.username }}</span></a>
+                </li>
+                <li>
+                    <a href="{% url 'account:user_logout' %}">登出</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
