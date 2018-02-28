@@ -11,7 +11,7 @@ from django.http import HttpResponse
 from .models import ArticleColumn,ArticlePost
 from .forms import ArticleColumnForm,ArticlePostForm
 from django.views.decorators.http import require_POST
-
+from django.shortcuts import get_object_or_404
 #栏目视图
 @login_required(login_url='/account/login')
 @csrf_exempt
@@ -85,5 +85,45 @@ def article_post(request):
             'article_post_form':article_post_form,'article_columns':article_columns
         })
 
+#简单文章标题列表
+def article_list(request):
+    articles = ArticlePost.objects.filter(author=request.user)
+    return render(request,'article/column/article_list.html',{'articles':articles})
 
+#显示页面详情
+@login_required(login_url='account/login')
+
+def article_detail(request,id,slug):
+    article = get_object_or_404(ArticlePost,id=id,slug=slug)
+    return render(request,'article/column/article_detail.html',{'article':article})
+
+#文章删除视图
+
+@login_required(login_url='/account/login')
+@require_POST
+@csrf_exempt
+def del_article(request):
+    article_id = request.POST['article_id']
+    try:
+        article = ArticlePost.objects.get(id = article_id)
+        article.delete()
+        return HttpResponse('1')
+    except:
+        return HttpResponse('2')
+#修改文章内容
+@login_required(login_url= '/account/login')
+@csrf_exempt
+def redit_article(request,article_id):
+    if request.method == "GET":
+        article_columns = request.user.article_column.all()
+        article = ArticlePost.objects.get(id = article_id)
+        this_article_form = ArticlePostForm(initial={"title" : article.id})
+        this_article_column = article.column
+        return render(request,"article/column/redit_article.html",{
+            "article":article,"article_columns":article_columns,
+            "this_article_column":this_article_column,
+            "this_article_form":this_article_form,
+        })
+    else:
+        pass
 

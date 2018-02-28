@@ -49,7 +49,9 @@
             data:{'title':title,'body':body,'column_id':column_id},
             success: function (e) {
                 if(e=='1'){
+
                     layer.msg('successful');
+                    window.location.href="{% url 'article:article_list' %}";//href拼写错误成herf
                 }else if (e=='2'){
                  layer.msg('sorry error');
                 }else {

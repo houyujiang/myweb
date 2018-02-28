@@ -28,7 +28,7 @@ class ArticlePost(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('title',)
+        ordering = ('-updated',)
         index_together = (('id','slug'),)
 
     def __str__(self):
@@ -40,4 +40,4 @@ class ArticlePost(models.Model):
 
     def get_absolute_url(self):
 
-        return reverse('article:article_detail',args=[self.id,self.slug])
+        return reverse('article:article_detail',args=[self.id ,self.slug])
