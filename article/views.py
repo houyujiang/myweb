@@ -12,6 +12,7 @@ from .models import ArticleColumn,ArticlePost
 from .forms import ArticleColumnForm,ArticlePostForm
 from django.views.decorators.http import require_POST
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 #栏目视图
 @login_required(login_url='/account/login')
 @csrf_exempt
@@ -86,9 +87,23 @@ def article_post(request):
         })
 
 #简单文章标题列表
+#2018.03.18 add 分页
+@login_required(login_url='account/login')
 def article_list(request):
-    articles = ArticlePost.objects.filter(author=request.user)
-    return render(request,'article/column/article_list.html',{'articles':articles})
+    article_list= ArticlePost.objects.filter(author=request.user)
+    paginator = Paginator(article_list,4)
+    page = request.GET.get('page')
+    try :
+        current_page = paginator.page(page)
+        articles = current_page.object_list
+    except PageNotAnInteger:
+        current_page = paginator.page(1)
+        articles = current_page.object_list
+    except EmptyPage :
+        current_page = paginator.page(paginator.num_pages)
+        articles = current_page.object_list
+
+    return render(request,'article/column/article_list.html',{'articles':articles,'page':current_page})
 
 #显示页面详情
 @login_required(login_url='account/login')
@@ -118,6 +133,7 @@ def redit_article(request,article_id):
         article_columns = request.user.article_column.all()
         article = ArticlePost.objects.get(id = article_id)
         this_article_form = ArticlePostForm(initial={"title" : article.id})
+       # print(this_article_form.title)
         this_article_column = article.column
         return render(request,"article/column/redit_article.html",{
             "article":article,"article_columns":article_columns,
@@ -125,5 +141,14 @@ def redit_article(request,article_id):
             "this_article_form":this_article_form,
         })
     else:
-        pass
+        ridit_article = ArticlePost.objects.get(id = article_id)
+        try:
+            ridit_article.column = request.user.article_column.get(id = request.POST['column_id'])
+            ridit_article.title = request.POST['title']
+            ridit_article.body = request.POST['body']
+            ridit_article.save()
+            return HttpResponse('1')
+        except:
+            return  HttpResponse('2')
+
 
