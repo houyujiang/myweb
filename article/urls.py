@@ -6,7 +6,7 @@
 # @Software: PyCharm
 
 from django.conf.urls import url
-from . import views
+from . import views,list_views
 
 urlpatterns =[
     url(r'^article-cloumn/$',views.article_column,name='article_column'),
@@ -17,4 +17,6 @@ urlpatterns =[
     url(r'^article-detail/(?P<id>\d+)/(?P<slug>[-\w]+)/$',views.article_detail,name='article_detail'),#显示页面详情
     url(r'^del-article/$',views.del_article,name="del_article"),#删除文章
     url(r'^redit-article/(?P<article_id>\d+)/$',views.redit_article,name="redit_article"),
+    url(r'^list-article-titles/$',list_views.article_titles,name="article-titles"),#文章标题简介
+    url(r'^list-article-detail/(?P<id>\d+)/(?P<slug>[-\w]+)/$',list_views.aritcle_detail,name ="list_article_detail"),
 ]
